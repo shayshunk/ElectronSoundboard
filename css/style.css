@@ -31,6 +31,10 @@ body {
     font-size: 3em;
 }
 
+#VolumeText {
+    font-size:2em;
+}
+
 #inputDiv {
     text-align: center;
 }
@@ -63,6 +67,18 @@ body {
 .primary-buttons {
     display:flex;
     justify-content: space-evenly;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2%;
+}
+
+.main-volume-slider {
+    accent-color: #3838ff;
+    flex:100%;
+    max-width: 60%;
 }
 
 .primary-button {

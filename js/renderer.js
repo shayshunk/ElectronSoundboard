@@ -3,21 +3,30 @@ const { ipcRenderer } = require("electron");
 const AddSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
 
-const loopColor = "rgb(64, 64, 64)";
-const unloopColor = "rgb(30, 30, 30)";
-
 AddSoundBtn.onclick = addSound;
 
-const rgb2hex = (rgb) =>
-  `#${rgb
-    .match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
-    .slice(1)
-    .map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
-    .join("")}`;
+const masterVolumeSlider = document.getElementById("MainVolume");
 
 let buttonName;
 
 const buttonList = [];
+
+masterVolumeSlider.addEventListener("input", () => {
+  const volume = masterVolumeSlider.value / 100;
+
+  console.log(volume);
+
+  let i = 0;
+
+  while (i < buttonList.length) {
+    const sound = buttonList[i].audioFile;
+    const localVolume = buttonList[i].volumeSlider.value / 100;
+
+    sound.volume = localVolume * volume;
+
+    i++;
+  }
+});
 
 async function addSound() {
   soundInformation = await openDialog();
@@ -111,12 +120,16 @@ async function addButton() {
   volumeSlider.max = 100;
   volumeSlider.value = 100;
   volumeSlider.classList.add("volume-slider");
+  volumeSlider.addEventListener("input", (e) => setVolume(e));
   container.appendChild(volumeSlider);
 
   buttonList.push({
     soundButton: newButton,
     loopButton: loopButton,
     audioFile: audio,
+    volumeSlider: volumeSlider,
+    path: filePath,
+    name: buttonName,
   });
 }
 
@@ -141,8 +154,6 @@ function setLoop(event) {
   const parentId = event.target.parentElement.id;
   const loopButton = buttonList[parentId].loopButton;
 
-  console.log(buttonList[parentId].loopButton.className);
-
   loopButton.className =
     loopButton.className == "loop-clicked" ? "loop-button" : "loop-clicked";
 
@@ -150,8 +161,17 @@ function setLoop(event) {
     const sound = buttonList[parentId].audioFile;
     sound.pause();
   }
+}
 
-  console.log(buttonList[parentId].loopButton.className);
+function setVolume(event) {
+  const parentId = event.target.parentElement.id;
+  const volumeSlider = buttonList[parentId].volumeSlider;
+  const volume = volumeSlider.value / 100;
+  const sound = buttonList[parentId].audioFile;
+
+  console.log(volume);
+
+  sound.volume = volume;
 }
 
 function playSound(event) {
