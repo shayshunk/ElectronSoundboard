@@ -1,0 +1,189 @@
+:root {
+    --dark-grey: #000000;
+    --light-grey: #393e46;
+    --cyan: #00adb5;
+    --silver: #eeeeee;
+    --light-red: #ff6b6b;
+    --egg-blue: #4ecdc4;
+    --dark-blue: #100883;
+    --dark-blue-active: #060668;
+    --dark-blue-hover: #090e9c;
+    --cerulean: #80847a;
+    --cerulean-hover: #91958a;
+    --cerulean-active: #6c7067;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Agency FB';
+}
+
+body {
+    background-color: var(--dark-grey);
+    color: var(--silver);
+}
+
+#Title {
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom:2%;
+    font-size: 3em;
+}
+
+#inputDiv {
+    text-align: center;
+}
+
+#soundPrompt {
+    text-align: center;
+    font-size: 2.5em;
+    padding-top: 2%;
+    padding-bottom: 3%;
+}
+
+#inputForm {
+    text-align: center;
+    align-items: center;
+    width: 80%;
+    font-size: 2.5em;
+    padding:2%;
+}
+
+#submitButton {
+    background-color: rgb(0, 0, 255);
+    border: none;
+    font-size: 2em;
+    color: white;
+    padding: 3%;
+    margin-top: 2%;
+    border-radius: 10px;
+}
+
+.primary-buttons {
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.primary-button {
+    background-color: #2c2cff;
+    border: none;
+    font-size: 2em;
+    color: white;
+    padding: 1.5%;
+    border-radius: 12px;
+}
+
+.primary-button:hover {
+    background-color: var(--cerulean-hover);
+}
+
+.primary-button:active {
+    background-color: var(--cerulean-active);
+}
+
+#sound-buttons {
+    display:grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(4, 1fr);
+    padding:2%;
+    gap: 10px;
+}
+
+.sound-button {
+    flex: 100%;
+    width: 150px;
+    height: 100px;
+    background-color: var(--dark-blue);
+    border: none;
+    font-size: 2em;
+    color: white;
+    padding: 1.5%;
+    padding-top:2%;
+    padding-bottom: 2%;
+    border-radius: 12px;
+}
+
+.sound-button:hover {
+    background-color: var(--dark-blue-hover);
+}
+
+.sound-button:active {
+    background-color: var(--dark-blue-active);
+}
+
+.sound-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+.loop-button {
+    flex: 25%;
+    flex-grow: 0;
+    background-color:#1e1e1e;
+    border: none;
+    font-size: 2em;
+    color: white;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-radius: 8px;
+}
+
+.loop-button:hover {
+    background-color:#404040;
+}
+
+.loop-button:active {
+    background-color:#131313;
+}
+
+img {
+    pointer-events: none;
+}
+
+.delete-button {
+    flex:25%;
+    flex-grow: 0;
+    background-color:#1e1e1e;
+    border: none;
+    font-size: 2em;
+    color: white;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-radius: 8px;
+}
+
+.delete-button:hover {
+    background-color:#404040;
+}
+
+.delete-button:active {
+    background-color:#131313;
+}
+
+.pen-button {
+    flex:25%;
+    flex-grow: 0;
+    background-color:#1e1e1e;
+    border: none;
+    font-size: 2em;
+    color: white;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-radius: 8px;
+}
+
+.pen-button:hover {
+    background-color:#404040;
+}
+
+.pen-button:active {
+    background-color:#131313;
+}
+
+.volume-slider {
+    accent-color: #3838ff;
+    flex:100%;
+}

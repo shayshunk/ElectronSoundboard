@@ -1,0 +1,19 @@
+{
+  "name": "electronsoundboard",
+  "version": "1.0.0",
+  "description": "Soundboard",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Shashank",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  },
+  "dependencies": {
+    "@radix-ui/themes": "^3.1.6",
+    "electron-modal-window": "^1.0.0"
+  }
+}
