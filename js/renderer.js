@@ -3,7 +3,17 @@ const { ipcRenderer } = require("electron");
 const AddSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
 
+const loopColor = "rgb(64, 64, 64)";
+const unloopColor = "rgb(30, 30, 30)";
+
 AddSoundBtn.onclick = addSound;
+
+const rgb2hex = (rgb) =>
+  `#${rgb
+    .match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+    .slice(1)
+    .map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
+    .join("")}`;
 
 let buttonName;
 
@@ -79,6 +89,7 @@ async function addButton() {
   const loopButton = document.createElement("button");
   loopButton.classList.add("loop-button");
   loopButton.innerHTML = '<img src="assets/loop.png" width="25" height="25">';
+  loopButton.addEventListener("click", (e) => setLoop(e));
   container.appendChild(loopButton);
 
   const pencilButton = document.createElement("button");
@@ -126,14 +137,31 @@ function deleteFunc(event) {
   }
 }
 
+function setLoop(event) {
+  const parentId = event.target.parentElement.id;
+  const loopButton = buttonList[parentId].loopButton;
+
+  console.log(buttonList[parentId].loopButton.className);
+
+  loopButton.className =
+    loopButton.className == "loop-clicked" ? "loop-button" : "loop-clicked";
+
+  if (loopButton.className == "loop-button") {
+    const sound = buttonList[parentId].audioFile;
+    sound.pause();
+  }
+
+  console.log(buttonList[parentId].loopButton.className);
+}
+
 function playSound(event) {
   const parentId = event.target.parentElement.id;
-  sound = buttonList[parentId].audioFile;
+  const sound = buttonList[parentId].audioFile;
 
-  // Debugging
-  console.log(buttonList);
-  console.log(parentId);
-  console.log(sound);
+  const isLoop = buttonList[parentId].loopButton.className == "loop-clicked";
 
+  if (isLoop) {
+    sound.loop = true;
+  }
   sound.play();
 }
