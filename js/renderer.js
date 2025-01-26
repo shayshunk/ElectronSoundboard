@@ -5,19 +5,23 @@ var fs = require('fs');
 // Grabbing HTML elements
 const addSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
-const resetButton = document.getElementById("ResetBtn");
+const resetBtn = document.getElementById("Reset");
+const alphabetizeBtn = document.getElementById("Alphabetize")
 
 // Setting up add sound button
 addSoundBtn.addEventListener("click", () => addSound());
 
 // Setting up reset button
-resetButton.addEventListener("click", () => resetAll());
+resetBtn.addEventListener("click", () => resetAll());
+
+// Setting up alphabetize button
+alphabetizeBtn.addEventListener("click", () => alphabetize());
 
 const masterVolumeSlider = document.getElementById("MainVolume");
 
 let buttonName;
 
-const buttonList = [], userData = [];
+var buttonList = [], userData = [];
 
 // Updates master volume
 masterVolumeSlider.addEventListener("input", () => {
@@ -28,9 +32,9 @@ masterVolumeSlider.addEventListener("input", () => {
     const sound = buttonList[i].audioFile;
     const localVolume = buttonList[i].volumeSlider.value / 100;
 
-    sound.volume = localVolume * volume;
+    console.log("Local volume of ", i, localVolume);
 
-    i++;
+    sound.volume = localVolume * volume;
   }
 });
 
@@ -52,6 +56,7 @@ if (fs.existsSync("UserData.txt")) {
   })
 }
 
+// Function to add sound button group
 async function addSound(path = null, name = null, vol = null, loopOn = false) {
   // Checking if passing in loaded sound
   if (path === null) {
@@ -71,24 +76,13 @@ async function addSound(path = null, name = null, vol = null, loopOn = false) {
   await addButton(name, vol, loopOn);
 }
 
-function deleteFunc(event) {
-  const parentContainer = event.target.parentElement;
-  const parentId = parentContainer.id;
-
-  parentContainer.remove();
-  buttonList.pop(parentId);
-
-  for (let i = buttonList.length; i > parentId; i--) {
-    soundContainer = document.getElementById(`${i}`);
-    soundContainer.id = `${i - 1}`;
-  }
-}
-
+// Prompting file dialog
 async function openDialog() {
   const soundInformation = await ipcRenderer.invoke("open-dialog");
   return soundInformation;
 }
 
+// Opening modal window
 async function openNewWindow() {
   return new Promise(function (resolve, reject) {
     let childWindow = window.open("html/input.html", "modal");
@@ -98,6 +92,7 @@ async function openNewWindow() {
   });
 }
 
+// Getting button name from modal window
 async function getFormValue() {
   let childWindow = await openNewWindow();
   let childDocument = childWindow.document;
@@ -130,6 +125,7 @@ async function addButton(name, vol, loopOn) {
   const container = document.createElement("div");
   container.classList.add("sound-container");
   container.id = `${buttonList.length}`;
+  container.order = buttonList.length;
   soundDiv.appendChild(container);
 
   // Creating sound button
@@ -228,7 +224,7 @@ function deleteFunc(event) {
 
   // Updating HTML IDs
   for (let i = buttonList.length; i > parentId; i--) {
-    soundContainer = document.getElementById(`${i}`);
+    let soundContainer = document.getElementById(`${i}`);
     soundContainer.id = `${i - 1}`;
   }
 
@@ -322,6 +318,43 @@ function resetAll() {
   }
 
   masterVolumeSlider.value = 100;
+
+  // Updating saved file
+  saveFile();
+}
+
+// Function to alphabetize all buttons
+function alphabetize() {
+  // Sorting button and user data lists
+  buttonList = buttonList.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+  });
+
+  userData = userData.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+  });
+
+  const totalButtons = userData.length;
+
+  // Resetting IDs
+  for (let i = 0; i < totalButtons; i++) {
+    buttonList[i].soundButton.parentElement.id = (`${i}`);
+  }
+
+  // Redoing grid positions
+  for (let i = 0; i < totalButtons; i++) {
+    let soundContainer = document.getElementById(`${i}`);
+    console.log(soundContainer);
+
+    const gridColumn = totalButtons % 3;
+    const gridRow = Math.floor(totalButtons / 3);
+
+    soundContainer.style.order = i;
+  }
 
   // Updating saved file
   saveFile();
