@@ -4,8 +4,8 @@
     --cyan: #00adb5;
     --silver: #eeeeee;
     --light-red: #ff6b6b;
-    --egg-blue: #4ecdc4;
-    --dark-blue: #100883;
+    --egg-blue: hsl(176, 56%, 55%);
+    --dark-blue: #4322ff;
     --dark-blue-active: #060668;
     --dark-blue-hover: #090e9c;
     --cerulean: #80847a;
@@ -82,25 +82,33 @@ body {
 }
 
 .main-volume-slider {
-    accent-color: #3838ff;
+    accent-color: #b4a4ff;
     flex: 100%;
     max-width: 60%;
+    transition-property: filter, transform;
+    transition-duration: 300ms;
+}
+
+.main-volume-slider:hover {
+    filter: brightness(80%);
+    transform: scale(1.05);
 }
 
 .primary-button {
-    background-color: #2222c1;
+    background-color: #3b3bbd;
     border: none;
     font-size: 2em;
     color: white;
     padding: 1.5%;
     border-radius: 12px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 400ms;
 }
 
 .primary-button:hover {
     filter: brightness(130%);
-    filter: hue-rotate(45deg);
+    filter: hue-rotate(22deg);
+    transform: scale(1.1);
 }
 
 .primary-button:active {
@@ -110,7 +118,7 @@ body {
 #sound-buttons {
     display: grid;
     justify-content: space-evenly;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     padding: 2%;
     gap: 10px;
 }
@@ -127,12 +135,13 @@ body {
     padding-top: 2%;
     padding-bottom: 2%;
     border-radius: 12px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 400ms;
 }
 
 .sound-button:hover {
-    filter: brightness(130%);
+    filter: brightness(150%);
+    transform: scale(1.05);
 }
 
 .sound-button:active {
@@ -156,12 +165,13 @@ body {
     padding-left: 2%;
     padding-right: 2%;
     border-radius: 8px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 300ms;
 }
 
 .loop-button:hover {
     filter: brightness(150%);
+    transform: scale(1.1);
 }
 
 .loop-button:active {
@@ -178,12 +188,13 @@ body {
     padding-left: 2%;
     padding-right: 2%;
     border-radius: 8px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 400ms;
 }
 
 .loop-clicked:hover {
     filter: brightness(75%);
+    transform: scale(1.1);
 }
 
 .loop-clicked:active {
@@ -204,12 +215,13 @@ img {
     padding-left: 2%;
     padding-right: 2%;
     border-radius: 8px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 400ms;
 }
 
 .delete-button:hover {
     filter: brightness(150%);
+    transform: scale(1.1);
 }
 
 .delete-button:active {
@@ -226,12 +238,13 @@ img {
     padding-left: 2%;
     padding-right: 2%;
     border-radius: 8px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 400ms;
 }
 
 .pen-button:hover {
     filter: brightness(150%);
+    transform: scale(1.1);
 }
 
 .pen-button:active {
@@ -239,12 +252,13 @@ img {
 }
 
 .volume-slider {
-    accent-color: #3838ff;
+    accent-color: #b4a4ff;
     flex: 100%;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 300ms;
 }
 
 .volume-slider:hover {
     filter: brightness(80%);
+    transform: scale(1.05);
 }
