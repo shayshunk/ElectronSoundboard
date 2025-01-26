@@ -19,7 +19,7 @@
   },
   "electronmon": {
     "patterns": [
-      "!test*"
+      "!*.txt"
     ]
   }
 }
