@@ -14,6 +14,12 @@
   },
   "dependencies": {
     "@radix-ui/themes": "^3.1.6",
-    "electron-modal-window": "^1.0.0"
+    "electron-modal-window": "^1.0.0",
+    "electron-store": "^10.0.0"
+  },
+  "electronmon": {
+    "patterns": [
+      "!test*"
+    ]
   }
 }

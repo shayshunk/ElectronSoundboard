@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+
 // include the Node.js 'path' module at the top of your file
 const path = require("node:path");
 const { text } = require("node:stream/consumers");

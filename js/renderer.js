@@ -1,5 +1,7 @@
 const { ipcRenderer } = require("electron");
 
+var fs = require('fs');
+
 const AddSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
 
@@ -9,7 +11,7 @@ const masterVolumeSlider = document.getElementById("MainVolume");
 
 let buttonName;
 
-const buttonList = [];
+const buttonList = [], userData = [];
 
 masterVolumeSlider.addEventListener("input", () => {
   const volume = masterVolumeSlider.value / 100;
@@ -128,9 +130,17 @@ async function addButton() {
     loopButton: loopButton,
     audioFile: audio,
     volumeSlider: volumeSlider,
-    path: filePath,
     name: buttonName,
   });
+
+  userData.push({
+    path: filePath,
+    name: buttonName,
+    vol: volumeSlider.value,
+    loopOn: loopButton.className == "loop-clicked",
+  });
+
+  saveFile();
 }
 
 function deleteFunc(event) {
@@ -169,8 +179,6 @@ function setVolume(event) {
   const volume = volumeSlider.value / 100;
   const sound = buttonList[parentId].audioFile;
 
-  console.log(volume);
-
   sound.volume = volume;
 }
 
@@ -184,4 +192,13 @@ function playSound(event) {
     sound.loop = true;
   }
   sound.play();
+}
+
+function saveFile() {
+  const jsonData = JSON.stringify(userData);
+  fs.writeFile("test.txt", jsonData, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  })
 }
