@@ -1,279 +1,318 @@
 :root {
-    --dark-grey: #000000;
-    --light-grey: #393e46;
-    --cyan: #00adb5;
-    --silver: #eeeeee;
-    --light-red: #ff6b6b;
-    --egg-blue: hsl(176, 56%, 55%);
-    --dark-blue: #4322ff;
-    --dark-blue-active: #060668;
-    --dark-blue-hover: #090e9c;
-    --cerulean: #80847a;
-    --cerulean-hover: #91958a;
-    --cerulean-active: #6c7067;
+  --dark-grey: #000000;
+  --light-grey: #393e46;
+  --cyan: #00adb5;
+  --silver: #eeeeee;
+  --light-red: #ff6b6b;
+  --egg-blue: hsl(176, 56%, 55%);
+  --dark-blue: #4322ff;
+  --dark-blue-active: #060668;
+  --dark-blue-hover: #090e9c;
+  --cerulean: #80847a;
+  --cerulean-hover: #91958a;
+  --cerulean-active: #6c7067;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Agency FB';
+  margin: 0;
+  padding: 0;
+  font-family: "Agency FB";
 }
 
 body {
-    background-color: var(--dark-grey);
-    color: var(--silver);
+  background-color: var(--dark-grey);
+  color: var(--silver);
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 #Title {
-    text-align: center;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    font-size: 3em;
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  font-size: 3em;
 }
 
 #VolumeText {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 #inputDiv {
-    text-align: center;
+  text-align: center;
 }
 
 #soundPrompt {
-    text-align: center;
-    font-size: 2.5em;
-    padding-top: 2%;
-    padding-bottom: 3%;
+  text-align: center;
+  font-size: 2.5em;
+  padding-top: 2%;
+  padding-bottom: 3%;
 }
 
 #inputForm {
-    text-align: center;
-    align-items: center;
-    width: 80%;
-    font-size: 2.5em;
-    padding: 2%;
+  text-align: center;
+  align-items: center;
+  width: 80%;
+  font-size: 2.5em;
+  padding: 2%;
 }
 
 .submitButton {
-    background-color: rgb(0, 0, 255);
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding: 3%;
-    margin-top: 2%;
-    border-radius: 10px;
-    transition-property: filter, transform;
-    transition-duration: 400ms;
+  background-color: rgb(0, 0, 255);
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding: 3%;
+  margin-top: 2%;
+  border-radius: 10px;
+  transition-property: filter, transform;
+  transition-duration: 400ms;
 }
 
 .submitButton:hover {
-    filter: brightness(150%);
-    transform: scale(1.1);
+  filter: brightness(150%);
+  transform: scale(1.1);
 }
 
 .primary-buttons {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .slider-container {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 2%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2%;
 }
 
 .column-setter {
-    font-size: 2em;
-    max-width: 5%;
-    background-color: #000000;
-    color: white;
-    text-align: center;
-    margin-right: 2%;
+  font-size: 2em;
+  max-width: 5%;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  margin-right: 2%;
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-    opacity: 0.5;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.5;
 }
 
 .main-volume-slider {
-    accent-color: #e798d4;
-    flex: 100%;
-    max-width: 60%;
-    transition-property: filter, transform;
-    transition-duration: 300ms;
+  accent-color: #e798d4;
+  flex: 100%;
+  max-width: 60%;
+  transition-property: filter, transform;
+  transition-duration: 300ms;
 }
 
 .main-volume-slider:hover {
-    filter: brightness(110%);
-    transform: scale(1.025);
+  filter: brightness(110%);
+  transform: scale(1.025);
 }
 
 .primary-button {
-    background-color: #3b3bbd;
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding: 1.5%;
-    border-radius: 12px;
-    transition-property: filter, transform;
-    transition-duration: 400ms;
+  background-color: #3b3bbd;
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding: 1.5%;
+  border-radius: 12px;
+  transition-property: filter, transform;
+  transition-duration: 400ms;
 }
 
 .primary-button:hover {
-    filter: brightness(130%);
-    filter: hue-rotate(22deg);
-    transform: scale(1.1);
+  filter: brightness(130%);
+  filter: hue-rotate(22deg);
+  transform: scale(1.1);
 }
 
 .primary-button:active {
-    filter: brightness(80%);
+  filter: brightness(80%);
 }
 
 #sound-buttons {
-    display: grid;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 2%;
-    gap: 10px;
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 2%;
+  gap: 10px;
 }
 
 .sound-button {
-    flex: 100%;
-    width: 150px;
-    height: 100px;
-    background-color: var(--dark-blue);
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding: 1.5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    border-radius: 12px;
-    transition-property: filter, transform;
-    transition-duration: 400ms;
+  flex: 100%;
+  width: 150px;
+  height: 100px;
+  background-color: var(--dark-blue);
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding: 1.5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-radius: 12px;
+  transition-property: filter, transform;
+  transition-duration: 400ms;
 }
 
 .sound-button:hover {
-    filter: brightness(150%);
-    transform: scale(1.05);
+  filter: brightness(150%);
+  transform: scale(1.05);
 }
 
 .sound-button:active {
-    filter: brightness(80%);
+  filter: brightness(80%);
 }
 
 .sound-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-evenly;
 }
 
 .loop-button {
-    flex: 25%;
-    flex-grow: 0;
-    background-color: rgb(30, 30, 30);
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding-left: 2%;
-    padding-right: 2%;
-    border-radius: 8px;
-    transition-property: filter, transform;
-    transition-duration: 300ms;
+  flex: 25%;
+  flex-grow: 0;
+  background-color: rgb(30, 30, 30);
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+  border-radius: 8px;
+  transition-property: filter, transform;
+  transition-duration: 300ms;
 }
 
 .loop-button:hover {
-    filter: brightness(150%);
-    transform: scale(1.1);
+  filter: brightness(150%);
+  transform: scale(1.1);
 }
 
 .loop-button:active {
-    filter: brightness(75%);
+  filter: brightness(75%);
 }
 
 .loop-clicked {
-    flex: 25%;
-    flex-grow: 0;
-    background-color: rgb(64, 64, 64);
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding-left: 2%;
-    padding-right: 2%;
-    border-radius: 8px;
-    transition-property: filter, transform;
-    transition-duration: 400ms;
+  flex: 25%;
+  flex-grow: 0;
+  background-color: rgb(64, 64, 64);
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+  border-radius: 8px;
+  transition-property: filter, transform;
+  transition-duration: 400ms;
 }
 
 .loop-clicked:hover {
-    filter: brightness(75%);
-    transform: scale(1.1);
+  filter: brightness(75%);
+  transform: scale(1.1);
 }
 
 .loop-clicked:active {
-    filter: brightness(50%);
+  filter: brightness(50%);
 }
 
 img {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .delete-button {
-    flex: 25%;
-    flex-grow: 0;
-    background-color: #1e1e1e;
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding-left: 2%;
-    padding-right: 2%;
-    border-radius: 8px;
-    transition-property: filter, transform;
-    transition-duration: 400ms;
+  flex: 25%;
+  flex-grow: 0;
+  background-color: #1e1e1e;
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+  border-radius: 8px;
+  transition-property: filter, transform;
+  transition-duration: 400ms;
 }
 
 .delete-button:hover {
-    filter: brightness(150%);
-    transform: scale(1.1);
+  filter: brightness(150%);
+  transform: scale(1.1);
 }
 
 .delete-button:active {
-    filter: brightness(75%);
+  filter: brightness(75%);
 }
 
 .pen-button {
-    flex: 25%;
-    flex-grow: 0;
-    background-color: #1e1e1e;
-    border: none;
-    font-size: 2em;
-    color: white;
-    padding-left: 2%;
-    padding-right: 2%;
-    border-radius: 8px;
-    transition-property: filter, transform;
-    transition-duration: 400ms;
+  flex: 25%;
+  flex-grow: 0;
+  background-color: #1e1e1e;
+  border: none;
+  font-size: 2em;
+  color: white;
+  padding-left: 2%;
+  padding-right: 2%;
+  border-radius: 8px;
+  transition-property: filter, transform;
+  transition-duration: 400ms;
 }
 
 .pen-button:hover {
-    filter: brightness(150%);
-    transform: scale(1.1);
+  filter: brightness(150%);
+  transform: scale(1.1);
 }
 
 .pen-button:active {
-    filter: brightness(75%);
+  filter: brightness(75%);
 }
 
 .volume-slider {
-    accent-color: #e798d4;
-    flex: 100%;
-    transition-property: filter, transform;
-    transition-duration: 300ms;
+  accent-color: #e798d4;
+  flex: 100%;
+  transition-property: filter, transform;
+  transition-duration: 300ms;
 }
 
 .volume-slider:hover {
-    filter: brightness(110%);
-    transform: scale(1.05);
+  filter: brightness(110%);
+  transform: scale(1.05);
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  flex-flow: column;
+}
+
+.main-container .menu-container {
+  flex: 0 0 auto;
+  padding-bottom: 2%;
+}
+
+.main-container .button-container {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.button-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.button-container::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+.button-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 6px;
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: content-box;
+  min-width: 32px;
+  min-height: 32px;
+}
+.button-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
 }
