@@ -155,6 +155,7 @@ async function addButton(name, vol, loopOn) {
   pencilButton.classList.add("pen-button");
   pencilButton.innerHTML =
     '<img src="assets/pencil.png" width="25" height="25">';
+  pencilButton.addEventListener("click", (e) => renameButton(e));
   container.appendChild(pencilButton);
 
   // Adding delete button
@@ -305,6 +306,22 @@ function saveFile() {
       console.log(err);
     }
   })
+}
+
+async function renameButton(event) {
+  // Grabbing button group
+  const parentId = event.target.parentElement.id;
+
+  // Opening modal window
+  let name = await getFormValue();
+
+  // Renaming button in arrays and on screen
+  buttonList[parentId].soundButton.textContent = name;
+  buttonList[parentId].name = name;
+  userData[parentId].name = name;
+
+  // Updating saved file
+  saveFile();
 }
 
 // Function to reset all volumes and loop buttons
