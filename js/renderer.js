@@ -5,7 +5,7 @@ var fs = require('fs');
 const AddSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
 
-AddSoundBtn.onclick = addSound;
+AddSoundBtn.addEventListener("click", () => addSound());
 
 const masterVolumeSlider = document.getElementById("MainVolume");
 
@@ -30,12 +30,35 @@ masterVolumeSlider.addEventListener("input", () => {
   }
 });
 
-async function addSound() {
-  soundInformation = await openDialog();
+// Checking if data file exists and loading sounds
+if (fs.existsSync("UserData.txt")) {
+  // Converting text back to JSON
+  fs.readFile('UserData.txt', 'utf8', (err, jsonData) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-  filePath = soundInformation[0];
+    const loadedSounds = JSON.parse(jsonData);
 
-  await addButton();
+    // Iterating through loaded sounds
+    for (let i = 0; i < loadedSounds.length; i++) {
+      addSound(loadedSounds[i].path, loadedSounds[i].name, loadedSounds[i].vol, loadedSounds[i].loopOn);
+    }
+  })
+}
+
+async function addSound(path = null, name = null, vol = null, loopOn = false) {
+  console.log(path);
+
+  if (path === null) {
+    soundInformation = await openDialog();
+    filePath = soundInformation[0];
+  }
+  else {
+    filePath = path;
+  }
+  await addButton(name, vol, loopOn);
 }
 
 function deleteFunc(event) {
@@ -81,24 +104,42 @@ async function getFormValue() {
   });
 }
 
-async function addButton() {
-  buttonName = await getFormValue();
+async function addButton(name, vol, loopOn) {
 
+  // Checking if preloaded sounds exist
+  if (name === null) {
+    buttonName = await getFormValue();
+  }
+  else {
+    buttonName = name;
+  }
+
+  // Creating elements
+
+  // Creating div container
   const container = document.createElement("div");
   container.classList.add("sound-container");
   container.id = `${buttonList.length}`;
   soundDiv.appendChild(container);
 
+  // Creating sound button
   const newButton = document.createElement("button");
   newButton.classList.add("sound-button");
   newButton.textContent = `${buttonName}`;
   newButton.addEventListener("click", (e) => playSound(e));
   container.appendChild(newButton);
 
+  // Associating audio object with each sound
   const audio = new Audio(filePath);
 
+  // Creating loop button
   const loopButton = document.createElement("button");
-  loopButton.classList.add("loop-button");
+  if (loopOn) {
+    loopButton.classList.add("loop-clicked");
+  }
+  else {
+    loopButton.classList.add("loop-button");
+  }
   loopButton.innerHTML = '<img src="assets/loop.png" width="25" height="25">';
   loopButton.addEventListener("click", (e) => setLoop(e));
   container.appendChild(loopButton);
@@ -120,11 +161,17 @@ async function addButton() {
   volumeSlider.type = "range";
   volumeSlider.min = 0;
   volumeSlider.max = 100;
-  volumeSlider.value = 100;
+  if (vol === null) {
+    volumeSlider.value = 100;
+  }
+  else {
+    volumeSlider.value = vol;
+  }
   volumeSlider.classList.add("volume-slider");
   volumeSlider.addEventListener("input", (e) => setVolume(e));
   container.appendChild(volumeSlider);
 
+  // Tracking button data
   buttonList.push({
     soundButton: newButton,
     loopButton: loopButton,
@@ -133,6 +180,7 @@ async function addButton() {
     name: buttonName,
   });
 
+  // Keeping track of data to save
   userData.push({
     path: filePath,
     name: buttonName,
@@ -140,7 +188,10 @@ async function addButton() {
     loopOn: loopButton.className == "loop-clicked",
   });
 
-  saveFile();
+  // Saving only if not iterating through loaded sounds
+  if (name === null) {
+    saveFile();
+  }
 }
 
 function deleteFunc(event) {
@@ -196,7 +247,7 @@ function playSound(event) {
 
 function saveFile() {
   const jsonData = JSON.stringify(userData);
-  fs.writeFile("test.txt", jsonData, function (err) {
+  fs.writeFile("UserData.txt", jsonData, function (err) {
     if (err) {
       console.log(err);
     }
