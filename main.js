@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 
 // include the Node.js 'path' module at the top of your file
 const path = require("node:path");
@@ -33,6 +33,8 @@ const createWindow = () => {
   win.loadFile("index.html");
 };
 // ...
+
+Menu.setApplicationMenu(null);
 
 app.whenReady().then(() => {
   createWindow();

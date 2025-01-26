@@ -7,6 +7,8 @@ const addSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
 const resetBtn = document.getElementById("Reset");
 const alphabetizeBtn = document.getElementById("Alphabetize")
+const masterVolumeSlider = document.getElementById("MainVolume");
+const columnInput = document.getElementById("Columns");
 
 // Setting up add sound button
 addSoundBtn.addEventListener("click", () => addSound());
@@ -17,13 +19,11 @@ resetBtn.addEventListener("click", () => resetAll());
 // Setting up alphabetize button
 alphabetizeBtn.addEventListener("click", () => alphabetize());
 
-const masterVolumeSlider = document.getElementById("MainVolume");
-
+// Variables
 let buttonName;
-
 var buttonList = [], userData = [];
 
-// Updates master volume
+// Updating master volume
 masterVolumeSlider.addEventListener("input", () => {
   const volume = masterVolumeSlider.value / 100;
 
@@ -36,12 +36,26 @@ masterVolumeSlider.addEventListener("input", () => {
 
     sound.volume = localVolume * volume;
   }
+
+  // Updating options file
+  saveFile();
 });
 
+// Updating number of columns
+columnInput.addEventListener("input", () => {
+  const columns = columnInput.value;
+
+  // Changing grid layout
+  soundDiv.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+
+  // Updating options file
+  saveFile();
+})
+
 // Checking if data file exists and loading sounds
-if (fs.existsSync("UserData.txt")) {
+if (fs.existsSync("ButtonData.txt")) {
   // Converting text back to JSON
-  fs.readFile('UserData.txt', 'utf8', (err, jsonData) => {
+  fs.readFile("ButtonData.txt", 'utf8', (err, jsonData) => {
     if (err) {
       console.log(err);
       return;
@@ -53,6 +67,27 @@ if (fs.existsSync("UserData.txt")) {
     for (let i = 0; i < loadedSounds.length; i++) {
       addSound(loadedSounds[i].path, loadedSounds[i].name, loadedSounds[i].vol, loadedSounds[i].loopOn);
     }
+  })
+}
+
+// Checking if options file exists
+if (fs.existsSync("UserData.txt")) {
+  // Converting back to JSOn
+  fs.readFile("UserData.txt", 'utf8', (err, userOptions) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    // Grabbing data
+    const options = JSON.parse(userOptions);
+    const columns = options.columns;
+    const mainVolume = options.mainVolume;
+
+    // Updating
+    columnInput.value = columns;
+    soundDiv.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    masterVolumeSlider.value = mainVolume;
   })
 }
 
@@ -85,7 +120,7 @@ async function openDialog() {
 // Opening modal window
 async function openNewWindow() {
   return new Promise(function (resolve, reject) {
-    let childWindow = window.open("html/input.html", "modal");
+    let childWindow = window.open("html/input.html", "width=100,height=100,modal");
     childWindow.onload = () => {
       resolve(childWindow);
     };
@@ -95,6 +130,7 @@ async function openNewWindow() {
 // Getting button name from modal window
 async function getFormValue() {
   let childWindow = await openNewWindow();
+  childWindow.resizeTo(500, 300);
   let childDocument = childWindow.document;
 
   return new Promise(function (resolve, reject) {
@@ -298,10 +334,20 @@ function isSoundPlaying(audio) {
   return !audio.paused && !audio.muted && audio.currentTime > 0 && audio.readyState >= 2;
 }
 
-// Function to save buttons to file
+// Function to save data to file
 function saveFile() {
+  // Button data
   const jsonData = JSON.stringify(userData);
-  fs.writeFile("UserData.txt", jsonData, function (err) {
+  fs.writeFile("ButtonData.txt", jsonData, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  })
+
+  // User options
+  const options = { "mainVolume": masterVolumeSlider.value, "columns": columnInput.value };
+  const userJSON = JSON.stringify(options);
+  fs.writeFile("UserData.txt", userJSON, function (err) {
     if (err) {
       console.log(err);
     }

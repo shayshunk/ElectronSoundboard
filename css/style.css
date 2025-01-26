@@ -62,12 +62,13 @@ body {
     padding: 3%;
     margin-top: 2%;
     border-radius: 10px;
-    transition-property: filter;
+    transition-property: filter, transform;
     transition-duration: 400ms;
 }
 
 .submitButton:hover {
-    filter: brightness(130%);
+    filter: brightness(150%);
+    transform: scale(1.1);
 }
 
 .primary-buttons {
@@ -81,8 +82,22 @@ body {
     padding: 2%;
 }
 
+.column-setter {
+    font-size: 2em;
+    max-width: 5%;
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    margin-right: 2%;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    opacity: 0.5;
+}
+
 .main-volume-slider {
-    accent-color: #b4a4ff;
+    accent-color: #e798d4;
     flex: 100%;
     max-width: 60%;
     transition-property: filter, transform;
@@ -90,8 +105,8 @@ body {
 }
 
 .main-volume-slider:hover {
-    filter: brightness(80%);
-    transform: scale(1.05);
+    filter: brightness(110%);
+    transform: scale(1.025);
 }
 
 .primary-button {
@@ -252,13 +267,13 @@ img {
 }
 
 .volume-slider {
-    accent-color: #b4a4ff;
+    accent-color: #e798d4;
     flex: 100%;
     transition-property: filter, transform;
     transition-duration: 300ms;
 }
 
 .volume-slider:hover {
-    filter: brightness(80%);
+    filter: brightness(110%);
     transform: scale(1.05);
 }
