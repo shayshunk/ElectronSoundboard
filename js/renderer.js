@@ -1,11 +1,17 @@
+// Node and electron requirements
 const { ipcRenderer } = require("electron");
-
 var fs = require('fs');
 
-const AddSoundBtn = document.getElementById("AddSound");
+// Grabbing HTML elements
+const addSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
+const resetButton = document.getElementById("ResetBtn");
 
-AddSoundBtn.addEventListener("click", () => addSound());
+// Setting up add sound button
+addSoundBtn.addEventListener("click", () => addSound());
+
+// Setting up reset button
+resetButton.addEventListener("click", () => resetAll());
 
 const masterVolumeSlider = document.getElementById("MainVolume");
 
@@ -13,14 +19,12 @@ let buttonName;
 
 const buttonList = [], userData = [];
 
+// Updates master volume
 masterVolumeSlider.addEventListener("input", () => {
   const volume = masterVolumeSlider.value / 100;
 
-  console.log(volume);
-
-  let i = 0;
-
-  while (i < buttonList.length) {
+  // Updating all sound volumes
+  for (let i = 0; i < buttonList.length; i++) {
     const sound = buttonList[i].audioFile;
     const localVolume = buttonList[i].volumeSlider.value / 100;
 
@@ -56,6 +60,11 @@ async function addSound(path = null, name = null, vol = null, loopOn = false) {
   }
   else {
     filePath = path;
+  }
+
+  // Makes sure name dialog isn't loaded if no file path
+  if (filePath == undefined) {
+    return;
   }
 
   // Adding button once path is set
@@ -171,7 +180,8 @@ async function addButton(name, vol, loopOn) {
   }
   else {
     volumeSlider.value = vol;
-    audio.volume = vol / 100;
+    const masterVolume = masterVolumeSlider.value / 100;
+    audio.volume = vol * masterVolume / 100;
   }
   volumeSlider.classList.add("volume-slider");
   volumeSlider.addEventListener("input", (e) => setVolume(e));
@@ -299,4 +309,20 @@ function saveFile() {
       console.log(err);
     }
   })
+}
+
+// Function to reset all volumes and loop buttons
+function resetAll() {
+  for (let i = 0; i < buttonList.length; i++) {
+    buttonList[i].loopButton.className = "loop-button";
+    buttonList[i].volumeSlider.value = 100;
+
+    userData[i].loopOn = false;
+    userData[i].vol = 100;
+  }
+
+  masterVolumeSlider.value = 100;
+
+  // Updating saved file
+  saveFile();
 }

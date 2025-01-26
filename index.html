@@ -1,42 +1,35 @@
 <!--index.html-->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link href="./css/style.css" rel="stylesheet" />
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <div>
-      <h1 id="Title">Soundboard</h1>
-    </div>
-    <div class="slider-container">
-      <h2 id="VolumeText">Master Volume</h2>
-      <input
-        type="range"
-        id="MainVolume"
-        class="main-volume-slider"
-        min="0"
-        max="100"
-        value="100"
-      />
-    </div>
 
-    <div class="primary-buttons">
-      <button type="button" class="primary-button" id="AddSound">
-        Add Sound
-      </button>
-      <button type="button" class="primary-button">Alphabetize</button>
-      <button type="button" class="primary-button">Reset</button>
-    </div>
-    <div id="sound-buttons"></div>
+<head>
+  <link href="./css/style.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <title>Hello World!</title>
+</head>
 
-    <!-- You can also require other files to run in this process -->
-    <script defer src="js/renderer.js"></script>
-  </body>
+<body>
+  <div>
+    <h1 id="Title">Soundboard</h1>
+  </div>
+  <div class="slider-container">
+    <h2 id="VolumeText">Master Volume</h2>
+    <input type="range" id="MainVolume" class="main-volume-slider" min="0" max="100" value="100" />
+  </div>
+
+  <div class="primary-buttons">
+    <button type="button" class="primary-button" id="AddSound">
+      Add Sound
+    </button>
+    <button type="button" class="primary-button">Alphabetize</button>
+    <button type="button" class="primary-button" id="ResetBtn">Reset</button>
+  </div>
+  <div id="sound-buttons"></div>
+
+  <!-- You can also require other files to run in this process -->
+  <script defer src="js/renderer.js"></script>
+</body>
+
 </html>
