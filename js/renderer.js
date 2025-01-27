@@ -1,12 +1,12 @@
 // Node and electron requirements
 const { ipcRenderer } = require("electron");
-var fs = require('fs');
+var fs = require("fs");
 
 // Grabbing HTML elements
 const addSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
 const resetBtn = document.getElementById("Reset");
-const alphabetizeBtn = document.getElementById("Alphabetize")
+const alphabetizeBtn = document.getElementById("Alphabetize");
 const masterVolumeSlider = document.getElementById("MainVolume");
 const columnInput = document.getElementById("Columns");
 
@@ -21,7 +21,8 @@ alphabetizeBtn.addEventListener("click", () => alphabetize());
 
 // Variables
 let buttonName;
-var buttonList = [], userData = [];
+var buttonList = [],
+  userData = [];
 
 // Updating master volume
 masterVolumeSlider.addEventListener("input", () => {
@@ -50,12 +51,12 @@ columnInput.addEventListener("input", () => {
 
   // Updating options file
   saveFile();
-})
+});
 
 // Checking if data file exists and loading sounds
 if (fs.existsSync("ButtonData.txt")) {
   // Converting text back to JSON
-  fs.readFile("ButtonData.txt", 'utf8', (err, jsonData) => {
+  fs.readFile("ButtonData.txt", "utf8", (err, jsonData) => {
     if (err) {
       console.log(err);
       return;
@@ -65,15 +66,20 @@ if (fs.existsSync("ButtonData.txt")) {
 
     // Iterating through loaded sounds
     for (let i = 0; i < loadedSounds.length; i++) {
-      addSound(loadedSounds[i].path, loadedSounds[i].name, loadedSounds[i].vol, loadedSounds[i].loopOn);
+      addSound(
+        loadedSounds[i].path,
+        loadedSounds[i].name,
+        loadedSounds[i].vol,
+        loadedSounds[i].loopOn
+      );
     }
-  })
+  });
 }
 
 // Checking if options file exists
 if (fs.existsSync("UserData.txt")) {
   // Converting back to JSOn
-  fs.readFile("UserData.txt", 'utf8', (err, userOptions) => {
+  fs.readFile("UserData.txt", "utf8", (err, userOptions) => {
     if (err) {
       console.log(err);
       return;
@@ -88,7 +94,7 @@ if (fs.existsSync("UserData.txt")) {
     columnInput.value = columns;
     soundDiv.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
     masterVolumeSlider.value = mainVolume;
-  })
+  });
 }
 
 // Function to add sound button group
@@ -97,8 +103,7 @@ async function addSound(path = null, name = null, vol = null, loopOn = false) {
   if (path === null) {
     soundInformation = await openDialog();
     filePath = soundInformation[0];
-  }
-  else {
+  } else {
     filePath = path;
   }
 
@@ -120,7 +125,10 @@ async function openDialog() {
 // Opening modal window
 async function openNewWindow() {
   return new Promise(function (resolve, reject) {
-    let childWindow = window.open("html/input.html", "width=100,height=100,modal");
+    let childWindow = window.open(
+      "html/input.html",
+      "width=100,height=100,modal"
+    );
     childWindow.onload = () => {
       resolve(childWindow);
     };
@@ -128,7 +136,7 @@ async function openNewWindow() {
 }
 
 // Getting button name from modal window
-async function getFormValue() {
+async function getFormValue(defaultName = null) {
   let childWindow = await openNewWindow();
   childWindow.resizeTo(500, 300);
   let childDocument = childWindow.document;
@@ -136,6 +144,10 @@ async function getFormValue() {
   return new Promise(function (resolve, reject) {
     let form = childDocument.getElementById("submitForm");
     let inputForm = childDocument.getElementById("inputForm");
+
+    if (defaultName != null) {
+      inputForm.value = defaultName;
+    }
 
     form.addEventListener("submit", function () {
       buttonName = inputForm.value;
@@ -146,12 +158,10 @@ async function getFormValue() {
 }
 
 async function addButton(name, vol, loopOn) {
-
   // Checking if preloaded sounds exist
   if (name === null) {
     buttonName = await getFormValue();
-  }
-  else {
+  } else {
     buttonName = name;
   }
 
@@ -178,8 +188,7 @@ async function addButton(name, vol, loopOn) {
   const loopButton = document.createElement("button");
   if (loopOn) {
     loopButton.classList.add("loop-clicked");
-  }
-  else {
+  } else {
     loopButton.classList.add("loop-button");
   }
   loopButton.innerHTML = '<img src="assets/loop.png" width="25" height="25">';
@@ -210,11 +219,10 @@ async function addButton(name, vol, loopOn) {
   // Checking if loaded value is being passed
   if (vol === null) {
     volumeSlider.value = 100;
-  }
-  else {
+  } else {
     volumeSlider.value = vol;
     const masterVolume = masterVolumeSlider.value / 100;
-    audio.volume = vol * masterVolume / 100;
+    audio.volume = (vol * masterVolume) / 100;
   }
   volumeSlider.classList.add("volume-slider");
   volumeSlider.addEventListener("input", (e) => setVolume(e));
@@ -331,7 +339,12 @@ function playSound(event) {
 
 // Function to check if sound is already playing
 function isSoundPlaying(audio) {
-  return !audio.paused && !audio.muted && audio.currentTime > 0 && audio.readyState >= 2;
+  return (
+    !audio.paused &&
+    !audio.muted &&
+    audio.currentTime > 0 &&
+    audio.readyState >= 2
+  );
 }
 
 // Function to save data to file
@@ -342,24 +355,30 @@ function saveFile() {
     if (err) {
       console.log(err);
     }
-  })
+  });
 
   // User options
-  const options = { "mainVolume": masterVolumeSlider.value, "columns": columnInput.value };
+  const options = {
+    mainVolume: masterVolumeSlider.value,
+    columns: columnInput.value,
+  };
   const userJSON = JSON.stringify(options);
   fs.writeFile("UserData.txt", userJSON, function (err) {
     if (err) {
       console.log(err);
     }
-  })
+  });
 }
 
 async function renameButton(event) {
   // Grabbing button group
   const parentId = event.target.parentElement.id;
 
+  // Grabbing existing name
+  const oldName = buttonList[parentId].name;
+
   // Opening modal window
-  let name = await getFormValue();
+  let name = await getFormValue(oldName);
 
   // Renaming button in arrays and on screen
   buttonList[parentId].soundButton.textContent = name;
@@ -405,7 +424,7 @@ function alphabetize() {
 
   // Resetting IDs
   for (let i = 0; i < totalButtons; i++) {
-    buttonList[i].soundButton.parentElement.id = (`${i}`);
+    buttonList[i].soundButton.parentElement.id = `${i}`;
   }
 
   // Redoing grid positions
