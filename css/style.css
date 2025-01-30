@@ -11,6 +11,13 @@
   --cerulean: #80847a;
   --cerulean-hover: #91958a;
   --cerulean-active: #6c7067;
+  --gradient: linear-gradient(
+    301deg,
+    #2a1794 0%,
+    #341bc2 30%,
+    #4322ff 62%,
+    #5d41ff 100%
+  );
 }
 
 * {
@@ -149,6 +156,10 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 150px;
   height: 100px;
   background-color: var(--dark-blue);
+  background-image: var(--gradient);
+  background-size: 300%;
+  background-position: right;
+
   border: none;
   cursor: pointer;
   font-size: 1.75em;
@@ -158,8 +169,12 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-bottom: 2%;
   border-radius: 12px;
   position: relative;
-  transition-property: filter, transform, font-size;
-  transition-duration: 400ms;
+  transition: transform 300ms ease-in, font-size 300ms, background-position 2s;
+}
+.sound-button:hover {
+  background-position: left;
+  transform: scale(1.05);
+  font-size: 1.8em;
 }
 
 .text-paragraph {
@@ -180,17 +195,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
   transform: scaleX(0);
   transform-origin: middle;
-  transition: transform 250ms ease-in;
+  transition: transform 300ms ease-in;
 }
 
 .sound-button:hover .text-paragraph::after {
   transform: scaleX(1.05);
-}
-
-.sound-button:hover {
-  filter: brightness(150%);
-  transform: scale(1.05);
-  font-size: 1.8em;
 }
 
 .sound-button:active {
