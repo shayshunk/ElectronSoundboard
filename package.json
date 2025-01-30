@@ -10,6 +10,7 @@
   "author": "Shashank",
   "license": "ISC",
   "devDependencies": {
+    "@electron/packager": "^18.3.6",
     "electron": "^33.2.1"
   },
   "dependencies": {
@@ -19,7 +20,8 @@
   },
   "electronmon": {
     "patterns": [
-      "!*.txt", "!*git*"
+      "!*.txt",
+      "!*git*"
     ]
   }
 }

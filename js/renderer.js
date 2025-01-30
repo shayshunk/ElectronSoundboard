@@ -177,7 +177,10 @@ async function addButton(name, vol, loopOn) {
   // Creating sound button
   const newButton = document.createElement("button");
   newButton.classList.add("sound-button");
-  newButton.textContent = `${buttonName}`;
+  const newParagraph = document.createElement("p");
+  newParagraph.classList.add("text-paragraph");
+  newButton.appendChild(newParagraph);
+  newParagraph.textContent = `${buttonName}`;
   newButton.addEventListener("click", (e) => playSound(e));
   container.appendChild(newButton);
 

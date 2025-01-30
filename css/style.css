@@ -35,6 +35,10 @@ body {
   font-size: 2em;
 }
 
+#ColumnText {
+  font-size: 2em;
+}
+
 #inputDiv {
   text-align: center;
 }
@@ -57,6 +61,7 @@ body {
 .submitButton {
   background-color: rgb(0, 0, 255);
   border: none;
+  cursor: pointer;
   font-size: 2em;
   color: white;
   padding: 3%;
@@ -73,6 +78,7 @@ body {
 
 .primary-buttons {
   display: flex;
+  cursor: pointer;
   justify-content: space-evenly;
 }
 
@@ -144,19 +150,47 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 100px;
   background-color: var(--dark-blue);
   border: none;
+  cursor: pointer;
   font-size: 1.75em;
   color: white;
   padding: 1.5%;
   padding-top: 2%;
   padding-bottom: 2%;
   border-radius: 12px;
-  transition-property: filter, transform;
+  position: relative;
+  transition-property: filter, transform, font-size;
   transition-duration: 400ms;
+}
+
+.text-paragraph {
+  display: inline-block;
+  text-align: center;
+  width: max-content;
+  position: relative;
+}
+
+.text-paragraph::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 35px;
+  width: 100%;
+  height: 2px;
+  background: white;
+
+  transform: scaleX(0);
+  transform-origin: middle;
+  transition: transform 250ms ease-in;
+}
+
+.sound-button:hover .text-paragraph::after {
+  transform: scaleX(1.05);
 }
 
 .sound-button:hover {
   filter: brightness(150%);
   transform: scale(1.05);
+  font-size: 1.8em;
 }
 
 .sound-button:active {
@@ -173,6 +207,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .loop-button {
   flex: 25%;
   flex-grow: 0;
+  cursor: pointer;
   background-color: rgb(30, 30, 30);
   border: none;
   font-size: 2em;
@@ -196,6 +231,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .loop-clicked {
   flex: 25%;
   flex-grow: 0;
+  cursor: pointer;
   background-color: rgb(64, 64, 64);
   border: none;
   font-size: 2em;
@@ -223,6 +259,7 @@ img {
 .delete-button {
   flex: 25%;
   flex-grow: 0;
+  cursor: pointer;
   background-color: #1e1e1e;
   border: none;
   font-size: 2em;
@@ -246,6 +283,7 @@ img {
 .pen-button {
   flex: 25%;
   flex-grow: 0;
+  cursor: pointer;
   background-color: #1e1e1e;
   border: none;
   font-size: 2em;
