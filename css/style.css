@@ -36,6 +36,7 @@ body {
   padding-top: 2%;
   padding-bottom: 2%;
   font-size: 3em;
+  text-decoration: underline;
 }
 
 #VolumeText {
@@ -169,12 +170,14 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-bottom: 2%;
   border-radius: 12px;
   position: relative;
-  transition: transform 300ms ease-in, font-size 300ms, background-position 2s;
+  transition: transform 250ms ease-in, font-size 250ms,
+    background-position 500ms;
 }
 .sound-button:hover {
   background-position: left;
   transform: scale(1.05);
   font-size: 1.8em;
+  transition: background-position 5s;
 }
 
 .text-paragraph {
@@ -182,6 +185,7 @@ input[type="number"]::-webkit-outer-spin-button {
   text-align: center;
   width: max-content;
   position: relative;
+  pointer-events: none;
 }
 
 .text-paragraph::after {
@@ -195,7 +199,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
   transform: scaleX(0);
   transform-origin: middle;
-  transition: transform 300ms ease-in;
+  transition: transform 250ms ease-in;
 }
 
 .sound-button:hover .text-paragraph::after {
@@ -241,7 +245,7 @@ input[type="number"]::-webkit-outer-spin-button {
   flex: 25%;
   flex-grow: 0;
   cursor: pointer;
-  background-color: rgb(64, 64, 64);
+  background-color: rgb(78, 78, 78);
   border: none;
   font-size: 2em;
   color: white;
@@ -249,7 +253,7 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-right: 2%;
   border-radius: 8px;
   transition-property: filter, transform;
-  transition-duration: 400ms;
+  transition-duration: 300ms;
 }
 
 .loop-clicked:hover {
@@ -345,6 +349,10 @@ img {
   width: 13px;
 }
 
+.button-container:hover .button-container::-webkit-scrollbar {
+  width: 20px !important;
+}
+
 .button-container::-webkit-scrollbar-corner {
   background: rgba(0, 0, 0, 0);
 }
@@ -356,13 +364,14 @@ img {
   background-clip: content-box;
   min-width: 32px;
   min-height: 32px;
-  transition-property: filter, transform;
+  transition-property: filter, transform, background-color;
   transition-duration: 300ms;
 }
 
-.button-container:hover::-webkit-scrollbar-thumb:hover {
+.button-container:hover ::-webkit-scrollbar-thumb {
   filter: brightness(125%) !important;
   transform: scale(1.1) !important;
+  background-color: #5b5475;
 }
 
 .button-container::-webkit-scrollbar-track {
