@@ -3,3 +3,7 @@ node_modules/
 
 # Don't need user data
 *.txt
+
+# Don't need export stuff
+out/
+appicon.ico

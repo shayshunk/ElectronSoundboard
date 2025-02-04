@@ -171,7 +171,7 @@ async function addButton(name, vol, loopOn) {
   const container = document.createElement("div");
   container.classList.add("sound-container");
   container.id = `${buttonList.length}`;
-  container.order = buttonList.length;
+  container.style.order = buttonList.length;
   soundDiv.appendChild(container);
 
   // Creating sound button
@@ -238,6 +238,9 @@ async function addButton(name, vol, loopOn) {
     audioFile: audio,
     volumeSlider: volumeSlider,
     name: buttonName,
+    deleteButton: deleteButton,
+    penButton: pencilButton,
+    paragraph: newParagraph,
   });
 
   // Keeping track of data to save
@@ -254,10 +257,30 @@ async function addButton(name, vol, loopOn) {
   }
 }
 
-function deleteFunc(event) {
+async function deleteFunc(event) {
+  console.log("Before pop");
+  console.log(userData);
+
+  await new Promise((resolve) =>
+    setTimeout(() => {
+      resolve();
+    }, 350)
+  );
   // Grabbing button group
   const parentContainer = event.target.parentElement;
   const parentId = parentContainer.id;
+
+  buttonList[parentId].soundButton.classList.add("deleted");
+  buttonList[parentId].loopButton.classList.add("deleted");
+  buttonList[parentId].deleteButton.classList.add("deleted");
+  buttonList[parentId].penButton.classList.add("deleted");
+  buttonList[parentId].volumeSlider.classList.add("deleted");
+
+  await new Promise((resolve) =>
+    setTimeout(() => {
+      resolve();
+    }, 350)
+  );
 
   // Remove entire button group
   parentContainer.remove();
@@ -267,8 +290,13 @@ function deleteFunc(event) {
   sound.pause();
 
   // Updating arrays
-  buttonList.pop(parentId);
-  userData.pop(parentId);
+  buttonList.splice(parentId, 1);
+  userData.splice(parentId, 1);
+
+  console.log("After pop");
+  console.log(userData);
+
+  console.log(parentId);
 
   // Updating HTML IDs
   for (let i = buttonList.length; i > parentId; i--) {
@@ -384,7 +412,7 @@ async function renameButton(event) {
   let name = await getFormValue(oldName);
 
   // Renaming button in arrays and on screen
-  buttonList[parentId].soundButton.textContent = name;
+  buttonList[parentId].paragraph.textContent = name;
   buttonList[parentId].name = name;
   userData[parentId].name = name;
 
@@ -428,18 +456,14 @@ function alphabetize() {
   // Resetting IDs
   for (let i = 0; i < totalButtons; i++) {
     buttonList[i].soundButton.parentElement.id = `${i}`;
+    buttonList[i].soundButton.parentElement.style.order = i;
   }
 
   // Redoing grid positions
-  for (let i = 0; i < totalButtons; i++) {
-    let soundContainer = document.getElementById(`${i}`);
-    console.log(soundContainer);
-
-    const gridColumn = totalButtons % 3;
-    const gridRow = Math.floor(totalButtons / 3);
-
-    soundContainer.style.order = i;
-  }
+  // for (let i = 0; i < totalButtons; i++) {
+  //   let soundContainer = document.getElementById(`${i}`);
+  //   soundContainer.style.order = i;
+  // }
 
   // Updating saved file
   saveFile();

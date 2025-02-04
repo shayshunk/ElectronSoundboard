@@ -1,21 +1,47 @@
 {
-  "name": "electronsoundboard",
+  "name": "soundboard",
   "version": "1.0.0",
-  "description": "Soundboard",
+  "description": "A minimalistic dark mode soundboard for TTRPG (Table Top Roleplaying Game) Game Masters to ",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "author": "Shashank",
+  "author": "Shashank Jayakumar",
   "license": "ISC",
+  "electronForge": {
+    "packagerConfig": {
+      "icon": "appicon.ico"
+    },
+    "makers": [
+      {
+        "name": "@electron-forge/gm-tools",
+        "config": {
+          "name": "soundboard"
+        }
+      },
+      {
+        "name": "@electron-forge/maker-zip"
+      }
+    ]
+  },
   "devDependencies": {
-    "@electron/packager": "^18.3.6",
+    "@electron-forge/cli": "^7.6.1",
+    "@electron-forge/maker-deb": "^7.6.1",
+    "@electron-forge/maker-rpm": "^7.6.1",
+    "@electron-forge/maker-squirrel": "^7.6.1",
+    "@electron-forge/maker-zip": "^7.6.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.6.1",
+    "@electron-forge/plugin-fuses": "^7.6.1",
+    "@electron/fuses": "^1.8.0",
     "electron": "^33.2.1"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.1.6",
     "electron-modal-window": "^1.0.0",
+    "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^10.0.0"
   },
   "electronmon": {
