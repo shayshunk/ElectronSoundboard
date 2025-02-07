@@ -182,6 +182,8 @@ async function addButton(name, vol, loopOn) {
   newButton.appendChild(newParagraph);
   newParagraph.textContent = `${buttonName}`;
   newButton.addEventListener("click", (e) => playSound(e));
+  newButton.addEventListener("mouseover", (e) => hoverEffect(e));
+  newButton.addEventListener("mouseout", () => unhoverEffect());
   container.appendChild(newButton);
 
   // Associating audio object with each sound
@@ -196,6 +198,8 @@ async function addButton(name, vol, loopOn) {
   }
   loopButton.innerHTML = '<img src="assets/loop.png" width="25" height="25">';
   loopButton.addEventListener("click", (e) => setLoop(e));
+  loopButton.addEventListener("mouseover", (e) => hoverEffect(e));
+  loopButton.addEventListener("mouseout", () => unhoverEffect());
   container.appendChild(loopButton);
 
   // Adding rename button
@@ -204,6 +208,8 @@ async function addButton(name, vol, loopOn) {
   pencilButton.innerHTML =
     '<img src="assets/pencil.png" width="25" height="25">';
   pencilButton.addEventListener("click", (e) => renameButton(e));
+  pencilButton.addEventListener("mouseover", (e) => hoverEffect(e));
+  pencilButton.addEventListener("mouseout", () => unhoverEffect());
   container.appendChild(pencilButton);
 
   // Adding delete button
@@ -212,6 +218,8 @@ async function addButton(name, vol, loopOn) {
   deleteButton.innerHTML =
     '<img src="assets/delete.png" width="25" height="25">';
   deleteButton.addEventListener("click", (e) => deleteFunc(e));
+  deleteButton.addEventListener("mouseover", (e) => hoverEffect(e));
+  deleteButton.addEventListener("mouseout", () => unhoverEffect());
   container.appendChild(deleteButton);
 
   // Adding volume slider
@@ -229,6 +237,8 @@ async function addButton(name, vol, loopOn) {
   }
   volumeSlider.classList.add("volume-slider");
   volumeSlider.addEventListener("input", (e) => setVolume(e));
+  volumeSlider.addEventListener("mouseover", (e) => hoverEffect(e));
+  volumeSlider.addEventListener("mouseout", () => unhoverEffect());
   container.appendChild(volumeSlider);
 
   // Tracking button data
@@ -258,14 +268,6 @@ async function addButton(name, vol, loopOn) {
 }
 
 async function deleteFunc(event) {
-  console.log("Before pop");
-  console.log(userData);
-
-  await new Promise((resolve) =>
-    setTimeout(() => {
-      resolve();
-    }, 350)
-  );
   // Grabbing button group
   const parentContainer = event.target.parentElement;
   const parentId = parentContainer.id;
@@ -279,7 +281,7 @@ async function deleteFunc(event) {
   await new Promise((resolve) =>
     setTimeout(() => {
       resolve();
-    }, 350)
+    }, 360)
   );
 
   // Remove entire button group
@@ -292,11 +294,6 @@ async function deleteFunc(event) {
   // Updating arrays
   buttonList.splice(parentId, 1);
   userData.splice(parentId, 1);
-
-  console.log("After pop");
-  console.log(userData);
-
-  console.log(parentId);
 
   // Updating HTML IDs
   for (let i = buttonList.length; i > parentId; i--) {
@@ -345,6 +342,32 @@ function setVolume(event) {
   // Updating saved file
   userData[parentId].vol = volume * 100;
   saveFile();
+}
+
+function hoverEffect(event) {
+  // Grabbing button group
+  const parentId = event.target.parentElement.id;
+
+  for (let i = 0; i < buttonList.length; i++) {
+    if (i == parentId) {
+      continue;
+    }
+    buttonList[i].soundButton.classList.add("unhovered");
+    buttonList[i].penButton.classList.add("unhovered");
+    buttonList[i].deleteButton.classList.add("unhovered");
+    buttonList[i].loopButton.classList.add("unhovered");
+    buttonList[i].volumeSlider.classList.add("unhovered");
+  }
+}
+
+function unhoverEffect() {
+  for (let i = 0; i < buttonList.length; i++) {
+    buttonList[i].soundButton.classList.remove("unhovered");
+    buttonList[i].penButton.classList.remove("unhovered");
+    buttonList[i].deleteButton.classList.remove("unhovered");
+    buttonList[i].loopButton.classList.remove("unhovered");
+    buttonList[i].volumeSlider.classList.remove("unhovered");
+  }
 }
 
 function playSound(event) {
