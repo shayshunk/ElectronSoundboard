@@ -172,6 +172,8 @@ async function addButton(name, vol, loopOn) {
   container.classList.add("sound-container");
   container.id = `${buttonList.length}`;
   container.style.order = buttonList.length;
+  container.addEventListener("mouseover", (e) => hoverEffect(e));
+  container.addEventListener("mouseout", () => unhoverEffect());
   soundDiv.appendChild(container);
 
   // Creating sound button
@@ -247,6 +249,7 @@ async function addButton(name, vol, loopOn) {
     name: buttonName,
     deleteButton: deleteButton,
     penButton: pencilButton,
+    soundDiv: container,
   });
 
   // Keeping track of data to save
@@ -342,27 +345,34 @@ function setVolume(event) {
 
 function hoverEffect(event) {
   // Grabbing button group
-  const parentId = event.target.parentElement.id;
+  let parentId;
+  if (event.target.nodeName == "DIV") {
+    parentId = event.target.id;
+  } else {
+    parentId = event.target.parentElement.id;
+  }
 
   for (let i = 0; i < buttonList.length; i++) {
     if (i == parentId) {
       continue;
     }
-    buttonList[i].soundButton.classList.add("unhovered");
-    buttonList[i].penButton.classList.add("unhovered");
-    buttonList[i].deleteButton.classList.add("unhovered");
-    buttonList[i].loopButton.classList.add("unhovered");
-    buttonList[i].volumeSlider.classList.add("unhovered");
+    // buttonList[i].soundButton.classList.add("unhovered");
+    // buttonList[i].penButton.classList.add("unhovered");
+    // buttonList[i].deleteButton.classList.add("unhovered");
+    // buttonList[i].loopButton.classList.add("unhovered");
+    // buttonList[i].volumeSlider.classList.add("unhovered");
+    buttonList[i].soundDiv.classList.add("unhovered");
   }
 }
 
 function unhoverEffect() {
   for (let i = 0; i < buttonList.length; i++) {
-    buttonList[i].soundButton.classList.remove("unhovered");
-    buttonList[i].penButton.classList.remove("unhovered");
-    buttonList[i].deleteButton.classList.remove("unhovered");
-    buttonList[i].loopButton.classList.remove("unhovered");
-    buttonList[i].volumeSlider.classList.remove("unhovered");
+    // buttonList[i].soundButton.classList.remove("unhovered");
+    // buttonList[i].penButton.classList.remove("unhovered");
+    // buttonList[i].deleteButton.classList.remove("unhovered");
+    // buttonList[i].loopButton.classList.remove("unhovered");
+    // buttonList[i].volumeSlider.classList.remove("unhovered");
+    buttonList[i].soundDiv.classList.remove("unhovered");
   }
 }
 

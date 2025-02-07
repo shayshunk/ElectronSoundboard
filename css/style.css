@@ -171,7 +171,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 12px;
   position: relative;
   transition: transform 250ms ease-in, font-size 250ms,
-    background-position 500ms, opacity 350ms ease-in, filter 350ms ease;
+    background-position 500ms, opacity 350ms ease-out, filter 350ms ease;
 
   white-space: normal;
   word-wrap: break-word;
@@ -182,10 +182,6 @@ input[type="number"]::-webkit-outer-spin-button {
   transform: scale(1.05);
   font-size: 1.76em;
   transition: background-position 5s;
-}
-
-.unhovered {
-  opacity: 50%;
 }
 
 .sound-button.deleted {
@@ -204,6 +200,13 @@ input[type="number"]::-webkit-outer-spin-button {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-evenly;
+  z-index: 1;
+  transition: opacity 250ms ease-out;
+}
+
+.unhovered {
+  opacity: 50%;
+  transition: opacity 250ms ease-in;
 }
 
 .loop-button {
