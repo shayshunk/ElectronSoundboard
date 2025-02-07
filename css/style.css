@@ -171,7 +171,10 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 12px;
   position: relative;
   transition: transform 250ms ease-in, font-size 250ms,
-    background-position 500ms, opacity 350ms ease-in-out, filter 350ms ease;
+    background-position 500ms, opacity 350ms ease-in, filter 350ms ease;
+
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .sound-button:hover {
@@ -189,54 +192,7 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 0;
   filter: blur(10px);
   transform: scale(1.2);
-}
-
-.text-paragraph {
-  display: inline-block;
-  text-align: center;
-  width: max-content;
-  max-width: 100%;
-  max-height: 90px;
-  position: relative;
-  word-wrap: break-word;
-  text-overflow: ellipsis;
-  pointer-events: none;
-}
-
-/* .text-paragraph::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 35px;
-  width: 100%;
-  height: 2px;
-  background: white;
-
-  transform: scaleX(0);
-  transform-origin: middle;
-  transition: transform 250ms ease-in;
-} */
-
-/* .text-paragraph::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 65px;
-  width: 100%;
-  height: 2px;
-  background: white;
-
-  transform: scaleX(0);
-  transform-origin: middle;
-  transition: transform 250ms ease-in;
-} */
-
-.sound-button:hover .text-paragraph::after {
-  transform: scaleX(1.05);
-}
-
-.sound-button:hover .text-paragraph::before {
-  transform: scaleX(1.05);
+  transform: translateY(-1em);
 }
 
 .sound-button:active {
@@ -263,13 +219,14 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 8px;
   transition-property: filter, transform, opacity;
   transition-duration: 350ms;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in;
 }
 
 .loop-button.deleted {
   opacity: 0;
   filter: blur(10px);
   transform: scale(1.2);
+  transform: translateY(-1em);
 }
 
 .loop-button:hover {
@@ -294,13 +251,14 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 8px;
   transition-property: filter, transform, opacity;
   transition-duration: 350ms;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in;
 }
 
 .loop-clicked.deleted {
   opacity: 0;
   filter: blur(10px);
   transform: scale(1.2);
+  transform: translateY(-1em);
 }
 
 .loop-clicked:hover {
@@ -329,13 +287,14 @@ img {
   border-radius: 8px;
   transition-property: filter, transform, opacity;
   transition-duration: 350ms;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in;
 }
 
 .delete-button.deleted {
   opacity: 0;
   filter: blur(10px);
   transform: scale(1.2);
+  transform: translateY(-1em);
 }
 
 .delete-button:hover {
@@ -360,13 +319,14 @@ img {
   border-radius: 8px;
   transition-property: filter, transform, opacity;
   transition-duration: 350ms;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in;
 }
 
 .pen-button.deleted {
   opacity: 0;
   filter: blur(10px);
   transform: scale(1.2);
+  transform: translateY(-1em);
 }
 
 .pen-button:hover {
@@ -383,13 +343,14 @@ img {
   flex: 100%;
   transition-property: filter, transform, opacity;
   transition-duration: 350ms;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in;
 }
 
 .volume-slider.deleted {
   opacity: 0;
   filter: blur(10px);
   transform: scale(1.2);
+  transform: translateY(-1em);
 }
 
 .volume-slider:hover {

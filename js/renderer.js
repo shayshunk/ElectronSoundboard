@@ -177,10 +177,7 @@ async function addButton(name, vol, loopOn) {
   // Creating sound button
   const newButton = document.createElement("button");
   newButton.classList.add("sound-button");
-  const newParagraph = document.createElement("p");
-  newParagraph.classList.add("text-paragraph");
-  newButton.appendChild(newParagraph);
-  newParagraph.textContent = `${buttonName}`;
+  newButton.textContent = `${buttonName}`;
   newButton.addEventListener("click", (e) => playSound(e));
   newButton.addEventListener("mouseover", (e) => hoverEffect(e));
   newButton.addEventListener("mouseout", () => unhoverEffect());
@@ -250,7 +247,6 @@ async function addButton(name, vol, loopOn) {
     name: buttonName,
     deleteButton: deleteButton,
     penButton: pencilButton,
-    paragraph: newParagraph,
   });
 
   // Keeping track of data to save
@@ -435,7 +431,7 @@ async function renameButton(event) {
   let name = await getFormValue(oldName);
 
   // Renaming button in arrays and on screen
-  buttonList[parentId].paragraph.textContent = name;
+  buttonList[parentId].soundButton.textContent = name;
   buttonList[parentId].name = name;
   userData[parentId].name = name;
 
@@ -463,13 +459,13 @@ function resetAll() {
 function alphabetize() {
   // Sorting button and user data lists
   buttonList = buttonList.sort((a, b) => {
-    if (a.name < b.name) {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
       return -1;
     }
   });
 
   userData = userData.sort((a, b) => {
-    if (a.name < b.name) {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
       return -1;
     }
   });
