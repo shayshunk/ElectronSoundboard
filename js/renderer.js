@@ -356,22 +356,12 @@ function hoverEffect(event) {
     if (i == parentId) {
       continue;
     }
-    // buttonList[i].soundButton.classList.add("unhovered");
-    // buttonList[i].penButton.classList.add("unhovered");
-    // buttonList[i].deleteButton.classList.add("unhovered");
-    // buttonList[i].loopButton.classList.add("unhovered");
-    // buttonList[i].volumeSlider.classList.add("unhovered");
     buttonList[i].soundDiv.classList.add("unhovered");
   }
 }
 
 function unhoverEffect() {
   for (let i = 0; i < buttonList.length; i++) {
-    // buttonList[i].soundButton.classList.remove("unhovered");
-    // buttonList[i].penButton.classList.remove("unhovered");
-    // buttonList[i].deleteButton.classList.remove("unhovered");
-    // buttonList[i].loopButton.classList.remove("unhovered");
-    // buttonList[i].volumeSlider.classList.remove("unhovered");
     buttonList[i].soundDiv.classList.remove("unhovered");
   }
 }
