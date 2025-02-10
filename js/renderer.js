@@ -5,6 +5,7 @@ var fs = require("fs");
 // Grabbing HTML elements
 const addSoundBtn = document.getElementById("AddSound");
 const soundDiv = document.getElementById("sound-buttons");
+const buttonContainer = document.getElementById("button-cont");
 const resetBtn = document.getElementById("Reset");
 const alphabetizeBtn = document.getElementById("Alphabetize");
 const masterVolumeSlider = document.getElementById("MainVolume");
@@ -23,6 +24,11 @@ alphabetizeBtn.addEventListener("click", () => alphabetize());
 let buttonName;
 var buttonList = [],
   userData = [];
+
+// Checking if user is scrolling
+buttonContainer.addEventListener("scroll", () => {
+  unhoverEffect();
+});
 
 // Updating master volume
 masterVolumeSlider.addEventListener("input", () => {
